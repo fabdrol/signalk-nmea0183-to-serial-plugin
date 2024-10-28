@@ -1,0 +1,36 @@
+{
+  "name": "signalk-nmea0183-to-serial",
+  "version": "1.0.0",
+  "description": "This plugin forwards NMEA0183 data to a serial port",
+  "main": "plugin/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "push": "npm run build && npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabdrol/signalk-nmea0183-to-serial-plugin.git"
+  },
+  "keywords": [
+    "signalk-node-server-plugin",
+    "nmea0183"
+  ],
+  "signalk-plugin-enabled-by-default": false,
+  "signalk": {
+    "displayName": "NMEA0183 to Serial Port Forwarder"
+  },
+  "author": "Fabian Tollenaar <fabian@decipher.industries>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/fabdrol/signalk-nmea0183-to-serial-pluginissues"
+  },
+  "homepage": "https://github.com/fabdrol/signalk-nmea0183-to-serial-plugin#readme",
+  "devDependencies": {
+    "@signalk/server-api": "^2.3.0",
+    "@types/node": "^18.19.0"
+  },
+  "dependencies": {
+    "serialport": "^12.0.0"
+  }
+}
