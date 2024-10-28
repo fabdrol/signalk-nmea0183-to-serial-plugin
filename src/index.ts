@@ -64,8 +64,7 @@ module.exports = (app: PluginServerAppExtended): Plugin => {
 
         if (data.startsWith('$') && data.charAt(len - 3) === '*') {
           forwardedCounter++
-          console.log(`Forwarding NMEA0183 sentence: ${data}`)
-          app.debug(`NMEA0183: ${data}`)
+          // app.debug(`NMEA0183: ${data}`)
 
           if (serial) {
             serial.write(`${data}\r\n`)
@@ -79,13 +78,21 @@ module.exports = (app: PluginServerAppExtended): Plugin => {
           baudRate: Number(settings.baudRate || 38400),
         })
 
+        serial.on('open', () => {
+          app.setPluginStatus(`Opened serial port ${settings.serialPort} with baudrate ${settings.baudRate}.`)
+        })
+
+        serial.on('error', (err) => {
+          app.setPluginStatus(`Serial port error: ${err}.`)
+        })
+
         anyApp.on('nmea0183', nmeaHandler)
         anyApp.on('nmea0183out', nmeaHandler)
 
-        reportInterval = setInterval(reporter, 10000)
+        reportInterval = setInterval(reporter, 20000)
         app.setPluginStatus(`Started`)
       } catch (err: any) {
-        app.setPluginError(`Error in start(): ${err?.message}`)
+        app.setPluginError(`Error starting plugin: ${err?.message}`)
       }
     },
 
